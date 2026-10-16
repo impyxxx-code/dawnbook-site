@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Add a memory · Dawnbook</title><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' blob:; style-src 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'none'; connect-src https://heiklnxhmtziyljjvarx.supabase.co">
+<link rel="icon" href="../icon.png"><style>
+:root{--bg:#FBF6EE;--card:#fff;--ink:#2B2433;--muted:#62596D;--accent:#BF4F34;--on:#fff;--soft:#F8E1D9;--line:#E4DACB;--link:#A8432B}
+@media (prefers-color-scheme:dark){:root{--bg:#17141C;--card:#211D28;--ink:#F3EDE4;--muted:#A8A0B3;--accent:#E8896E;--on:#1B1620;--soft:#3A2B2E;--line:#352F3E;--link:#F0A18B}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,'Times New Roman',serif}
+main{max-width:720px;margin:0 auto;padding:24px 20px 64px}header{display:flex;align-items:center;gap:12px;padding:20px;max-width:720px;margin:0 auto}
+header img{width:40px;height:40px;border-radius:10px}header a{color:var(--ink);text-decoration:none;font-weight:700;font-size:20px}
+nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}nav a{font-size:15px;font-weight:400;color:var(--link)}
+h1{font-size:34px;line-height:1.2;margin:.4em 0}h2{font-size:22px;margin:1.6em 0 .3em}p{margin:.6em 0}.muted{color:var(--muted);font-size:15px}
+a{color:var(--link)}.btn{display:inline-block;background:var(--accent);color:var(--on);padding:14px 22px;border-radius:14px;text-decoration:none;font:700 17px system-ui,sans-serif;border:0;cursor:pointer;min-height:48px}
+.btn.ghost{background:transparent;color:var(--link);border:1px solid var(--link)}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0}
+code,.code{font:15px/1.5 ui-monospace,Menlo,Consolas,monospace;word-break:break-all;background:var(--soft);padding:12px;border-radius:10px;display:block}
+ol{padding-left:22px}li{margin:.5em 0}footer{max-width:720px;margin:0 auto;padding:0 20px 40px;color:var(--muted);font-size:14px}footer a{margin-right:14px}
+[hidden]{display:none!important}
+label{display:block;font:600 15px system-ui,sans-serif;margin:16px 0 6px}input[type=text],input[type=date],textarea{width:100%;font:17px system-ui,sans-serif;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);min-height:48px}
+textarea{min-height:140px;resize:vertical}input:focus,textarea:focus,button:focus,a:focus{outline:3px solid var(--accent);outline-offset:2px}
+.thumbs{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}.thumb{position:relative;display:inline-block}.thumb img{width:96px;height:96px;object-fit:cover;border-radius:12px;display:block}
+.thumb button{position:absolute;top:-8px;right:-8px;width:32px;height:32px;border-radius:16px;border:0;background:var(--ink);color:var(--bg);font-size:20px;line-height:1;cursor:pointer}
+.bad{color:#B3261E;font:600 15px system-ui,sans-serif}@media (prefers-color-scheme:dark){.bad{color:#FF8A80}}.btn[disabled]{opacity:.5;cursor:default}
+</style></head><body>
+<header><img src="../icon.png" alt="" width="40" height="40"><a href="../index.html">Dawnbook</a>
+<nav><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../support.html">Support</a></nav></header>
+<main><div id="with-code" hidden>
+<h1>You're invited to add a memory</h1>
+<p>Someone in your family is keeping a private diary of a child's life in <strong>Dawnbook</strong> and would love your contribution: a photo or a few words. Only their family will ever see it.</p>
+<div id="web-gone" class="card" hidden><strong>This invitation is no longer valid.</strong><p>Ask the family to send you a new one.</p></div>
+<form id="web-form" class="card" hidden>
+<h2 style="margin-top:0">A memory for <span id="wf-child"></span></h2>
+<label for="wf-name">Your name</label><input id="wf-name" type="text" maxlength="60" autocomplete="name" placeholder="Grandma Rose">
+<label for="wf-date">When was this?</label><input id="wf-date" type="date">
+<label for="wf-text">Your memory</label><textarea id="wf-text" placeholder="What happened, what you saw, what you hope for them…"></textarea>
+<label for="wf-photos">Photos (up to 4)</label><input id="wf-photos" type="file" accept="image/*" multiple>
+<div id="wf-previews" class="thumbs"></div><p id="wf-count" class="muted"></p>
+<p><button id="wf-send" class="btn" type="submit">Send to the family</button></p>
+<p id="wf-status" class="muted" role="status"></p>
+<p class="muted">Your memory is locked in this page before it is sent. Nothing about you is stored here, and the parents choose what is added to the diary.</p>
+</form>
+<div id="web-done" class="card" hidden><h2 style="margin-top:0">Sent. Thank you.</h2><p>The family will see it the next time they open Dawnbook, and decide whether to add it.</p><p><button id="wf-again" class="btn ghost" type="button">Send another</button></p></div>
+<h2>Prefer the app?</h2>
+<ol><li>Install <strong>Dawnbook</strong> from your app store.</li><li>Open this invitation in the app:</li></ol>
+<p><a id="open-app" class="btn ghost" href="#">Open in Dawnbook</a></p>
+<p class="muted">If that does not open the app, in Dawnbook choose <strong>"I'm adding to someone else's Dawnbook"</strong> and paste this code:</p>
+<span id="code" class="code"></span><p><button id="copy" class="btn ghost" type="button">Copy code</button></p>
+<p class="muted">Voice notes can be added from the app.</p></div>
+<div id="no-code" hidden><h1>This invitation link is incomplete</h1><p>The link is missing its invitation code. Ask the person who invited you to send the link again.</p></div>
+<script src="/contribute/contribute.js"></script><script src="/contribute/init.js"></script><script src="/contribute/app.js"></script></main>
+<footer><a href="../privacy.html">Privacy policy</a><a href="../terms.html">Terms of use</a><a href="../delete-account.html">Delete your account</a><a href="../support.html">Support</a></footer>
+</body></html>
